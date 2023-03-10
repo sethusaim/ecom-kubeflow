@@ -23,3 +23,5 @@ DATA_TRANSFORMATION_VAL_FEATURES: str = "transformed_val_features.npz"
 DATA_TRANSFORMATION_TRAIN_TARGETS: str = "transformed_train_targets.pkl"
 
 DATA_TRANSFORMATION_VAL_TARGETS: str = "transformed_val_targets.pkl"
+
+DATA_TRANSFORMATION_PREPROCESSOR_FILE: str = "vectorizer.pkl"

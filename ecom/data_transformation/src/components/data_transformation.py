@@ -233,6 +233,10 @@ class DataTransformation:
             logging.info("Saved transformed train,val and test features")
 
             save_object(
+                self.data_transformation_config.transformed_vectorizer_file_path, tfidf
+            )
+
+            save_object(
                 self.data_transformation_config.transformed_train_targets_file_path,
                 y_train,
             )

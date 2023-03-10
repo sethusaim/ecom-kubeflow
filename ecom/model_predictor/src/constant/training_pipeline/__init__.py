@@ -1,35 +1,4 @@
-LABEL_DICT: dict = {
-    "Electronics": 0,
-    "Household": 1,
-    "Books": 2,
-    "Clothing & Accessories": 3,
-}
-
-ARTIFACTS_BUCKET_NAME: str = "41644ecom-artifacts"
-
-TARGET_COL: str = "label"
-
-ARTIFACT_DIR: str = "artifacts"
-
-DATA_VALIDATION_DIR: str = "data_validation"
-
-DATA_VALIDATION_VALIDATED_DIR: str = "validated"
-
-DATA_VALIDATION_TRAIN_FILE_NAME: str = "ecom_train.csv"
-
-DATA_VALIDATION_TEST_FILE_NAME: str = "ecom_test.csv"
-
-DATA_TRANSFORMATION_DIR: str = "data_transformation"
-
-DATA_TRANSFORMATION_TRAIN_FILE_NAME: str = "ecom_transformed_train.csv"
-
-DATA_TRANSFORMED_TRANSFORMED_DIR: str = "transformed"
-
-DATA_TRANSFORMATION_TEST_FILE_NAME: str = "ecom_transformed_test.csv"
-
-SPLIT_KWARGS: dict = {"test_size": 0.3, "random_state": 42}
-
-DATA_TRANSFORMATION_CONFIG_FOLDER: str = "config"
+from typing import List
 
 DATA_TRANSFORMATION_CONFIG_BUCKET_NAME: str = "41644ecom-config"
 
@@ -37,21 +6,9 @@ DATA_TRANSFORMATION_ACRONYMS_CONFIG_FILE: str = "english_acronyms.json"
 
 DATA_TRANSFORMATION_CONTRACTIONS_CONFIG_FILE: str = "english_contractions.json"
 
-TRANSFORMED_FEATURES_TRAIN_FILE: str = "transformed_train_features"
+DATA_TRANSFORMATION_CONFIG_FOLDER: str = "config"
 
-TRANSFORMED_FEATURES_VAL_FILE: str = "transformed_val_features"
-
-TRANSFORMED_FEATURES_TEST_FILE: str = "transformed_test_features"
-
-TRANSFORMED_TARGETS_TRAIN_FILE: str = "transformed_train_targets.pkl"
-
-TRANSFORMED_TARGETS_VAL_FILE: str = "transformed_val_targets.pkl"
-
-TRANSFORMED_TARGETS_TEST_FILE: str = "transformed_test_targets.pkl"
-
-TRANSFORMED_VECTORIZED_FILE_PATH: str = "vectorizer.pkl"
-
-DATA_TRANSFORMATION_STOP_WORDS: list = [
+DATA_TRANSFORMATION_STOP_WORDS: List = [
     "among",
     "onto",
     "shall",
@@ -63,7 +20,7 @@ DATA_TRANSFORMATION_STOP_WORDS: list = [
     "would",
 ]
 
-DATA_TRANSFORMATION_KEEP_TAGS = [
+DATA_TRANSFORMATION_KEEP_TAGS: List = [
     "NN",
     "NNS",
     "NNP",
@@ -86,7 +43,7 @@ DATA_TRANSFORMATION_KEEP_TAGS = [
     "WRB",
 ]
 
-ALPHABETS = [
+ALPHABETS: List = [
     "a",
     "b",
     "c",
@@ -116,7 +73,7 @@ ALPHABETS = [
 ]
 
 
-PREPOSITIONS = [
+PREPOSITIONS: List = [
     "about",
     "above",
     "across",
@@ -152,7 +109,7 @@ PREPOSITIONS = [
     "with",
 ]
 
-PREPOSITIONS_LESS_COMMON = [
+PREPOSITIONS_LESS_COMMON: List = [
     "aboard",
     "along",
     "amid",
@@ -186,7 +143,7 @@ PREPOSITIONS_LESS_COMMON = [
     "without",
 ]
 
-COORDINATING_CONJUNCTIONS = ["and", "but", "for", "nor", "or", "so", "and", "yet"]
+COORDINATING_CONJUNCTIONS: List = ["and", "but", "for", "nor", "or", "so", "and", "yet"]
 
 CORRELATIVE_CONJUNCTIONS = [
     "both",
@@ -202,7 +159,7 @@ CORRELATIVE_CONJUNCTIONS = [
     "or",
 ]
 
-SUBORDINATING_CONJUNCTIONS = [
+SUBORDINATING_CONJUNCTIONS: List = [
     "after",
     "although",
     "as",
@@ -244,7 +201,7 @@ SUBORDINATING_CONJUNCTIONS = [
     "while",
 ]
 
-OTHERS = [
+OTHERS: List = [
     "ã",
     "å",
     "ì",

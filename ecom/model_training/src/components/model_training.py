@@ -13,6 +13,7 @@ from src.exception import EcomException
 from src.logger import logging
 from src.ml.metric import calculate_metric
 from src.utils.main_utils import load_csr_matrix, load_object, save_object
+from src.ml.model.estimator import EcomModel
 
 
 class ModelTrainer:
@@ -45,6 +46,10 @@ class ModelTrainer:
                 file_path=self.data_transformation_artifact.transformed_val_targets
             )
 
+            vectorizer_obj = load_object(
+                file_path=self.data_transformation_artifact.vectorized_file_path
+            )
+
             model_factory = ModelFactory(
                 model_config_path=self.model_trainer_config.model_trainer_config_file_path
             )
@@ -63,8 +68,12 @@ class ModelTrainer:
 
                 raise Exception("No best model found with score more than base score")
 
+            ecom_model = EcomModel(
+                preprocessor=vectorizer_obj, model=best_model_detail.best_model
+            )
+
             save_object(
-                obj=best_model_detail.best_model,
+                obj=ecom_model,
                 file_path=self.model_trainer_config.model_trainer_model_file_path,
             )
 
