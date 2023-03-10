@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 DATA_TRANSFORMATION_CONFIG_BUCKET_NAME: str = "41644ecom-config"
 
@@ -7,6 +7,13 @@ DATA_TRANSFORMATION_ACRONYMS_CONFIG_FILE: str = "english_acronyms.json"
 DATA_TRANSFORMATION_CONTRACTIONS_CONFIG_FILE: str = "english_contractions.json"
 
 DATA_TRANSFORMATION_CONFIG_FOLDER: str = "config"
+
+LABEL_DICT: Dict = {
+    "Electronics": 0,
+    "Household": 1,
+    "Books": 2,
+    "Clothing & Accessories": 3,
+}
 
 DATA_TRANSFORMATION_STOP_WORDS: List = [
     "among",
