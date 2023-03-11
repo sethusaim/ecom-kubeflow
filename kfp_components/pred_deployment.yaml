@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ecom-classifier
+  name: ecom-classifier
+spec:
+  selector:
+    matchLabels:
+      app: ecom-classifier
+  template:
+    metadata:
+      labels:
+        app: ecom-classifier
+    spec:
+      containers:
+        - image: 566373416292.dkr.ecr.us-east-1.amazonaws.com/ecom_prediction:latest
+          imagePullPolicy: IfNotPresent
+          name: ecom-classifier
+          ports:
+            - containerPort: 8080
