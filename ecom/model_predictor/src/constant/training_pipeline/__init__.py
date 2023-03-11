@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import Dict, List
 
 DATA_TRANSFORMATION_CONFIG_BUCKET_NAME: str = "41644ecom-config"
 
@@ -7,6 +7,14 @@ DATA_TRANSFORMATION_ACRONYMS_CONFIG_FILE: str = "english_acronyms.json"
 DATA_TRANSFORMATION_CONTRACTIONS_CONFIG_FILE: str = "english_contractions.json"
 
 DATA_TRANSFORMATION_CONFIG_FOLDER: str = "config"
+
+BEST_MODEL_FOLDER: str = "best_model"
+
+BEST_MODEL_FILE_NAME: str = "model.pkl"
+
+APP_HOST: str = "0.0.0.0"
+
+APP_PORT: int = 8080
 
 LABEL_DICT: Dict = {
     "Electronics": 0,

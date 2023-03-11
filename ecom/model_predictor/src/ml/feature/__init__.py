@@ -1,5 +1,7 @@
 import re
 import string
+import sys
+from typing import Dict
 
 import nltk
 import spacy
@@ -8,7 +10,8 @@ from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
 
 from src.constant import training_pipeline
-from typing import Dict
+from src.exception import EcomException
+from src.utils.main_utils import read_json
 
 regexp = RegexpTokenizer("[\w']+")
 
@@ -57,36 +60,44 @@ remove_http = lambda text: re.sub(r"({})".format("https?://\S+|www\.\S+"), "", t
 
 
 def convert_acronyms(text: str, acronyms_dict: Dict) -> str:
-    words = []
+    try:
+        words = []
 
-    acronyms_list = list(acronyms_dict.keys())
+        acronyms_list = list(acronyms_dict.keys())
 
-    for word in regexp.tokenize(text):
-        if word in acronyms_list:
-            words = words + acronyms_dict[word].split()
-        else:
-            words = words + word.split()
+        for word in regexp.tokenize(text):
+            if word in acronyms_list:
+                words = words + acronyms_dict[word].split()
+            else:
+                words = words + word.split()
 
-    text_converted = " ".join(words)
+        text_converted = " ".join(words)
 
-    return text_converted
+        return text_converted
+
+    except Exception as e:
+        raise EcomException(e, sys)
 
 
 def convert_contractions(text: str, contractions_dict: Dict):
-    words = []
+    try:
+        words = []
 
-    contractions_list = list(contractions_dict.keys())
+        contractions_list = list(contractions_dict.keys())
 
-    for word in regexp.tokenize(text):
-        if word in contractions_list:
-            words = words + contractions_dict[word].split()
+        for word in regexp.tokenize(text):
+            if word in contractions_list:
+                words = words + contractions_dict[word].split()
 
-        else:
-            words = words + word.split()
+            else:
+                words = words + word.split()
 
-    text_converted = " ".join(words)
+        text_converted = " ".join(words)
 
-    return text_converted
+        return text_converted
+
+    except Exception as e:
+        raise EcomException(e, sys)
 
 
 remove_stopwords = lambda text: " ".join(
@@ -107,17 +118,21 @@ discard_non_alpha = lambda text: " ".join(
 
 
 def keep_pos(text):
-    tokens = regexp.tokenize(text)
+    try:
+        tokens = regexp.tokenize(text)
 
-    tokens_tagged = nltk.pos_tag(tokens)
+        tokens_tagged = nltk.pos_tag(tokens)
 
-    keep_words = [
-        x[0]
-        for x in tokens_tagged
-        if x[1] in training_pipeline.DATA_TRANSFORMATION_KEEP_TAGS
-    ]
+        keep_words = [
+            x[0]
+            for x in tokens_tagged
+            if x[1] in training_pipeline.DATA_TRANSFORMATION_KEEP_TAGS
+        ]
 
-    return " ".join(keep_words)
+        return " ".join(keep_words)
+
+    except Exception as e:
+        raise EcomException(e, sys)
 
 
 remove_additional_stopwords = lambda text: " ".join(
@@ -125,35 +140,45 @@ remove_additional_stopwords = lambda text: " ".join(
 )
 
 
-def text_normalizer(text: str, acronyms_dict: Dict, contractions_dict: Dict) -> str:
-    text = convert_to_lowercase(text)
+def text_normalizer(
+    text: str, acronyms_dict_path: str, contractions_dict_path: str
+) -> str:
+    try:
+        text = convert_to_lowercase(text)
 
-    text = remove_whitespace(text)
+        text = remove_whitespace(text)
 
-    text = re.sub("\n", "", text)  # converting text to one line
+        text = re.sub("\n", "", text)  # converting text to one line
 
-    text = re.sub("\[.*?\]", "", text)  # removing square brackets
+        text = re.sub("\[.*?\]", "", text)  # removing square brackets
 
-    text = remove_http(text)
+        text = remove_http(text)
 
-    text = remove_punctuation(text)
+        text = remove_punctuation(text)
 
-    text = remove_html(text)
+        text = remove_html(text)
 
-    text = remove_emoji(text)
+        text = remove_emoji(text)
 
-    text = convert_acronyms(text, acronyms_dict)
+        acronyms_dict = read_json(file_path=acronyms_dict_path)
 
-    text = convert_contractions(text, contractions_dict)
+        contractions_dict = read_json(file_path=contractions_dict_path)
 
-    text = remove_stopwords(text)
+        text = convert_acronyms(text, acronyms_dict)
 
-    text = text_lemmatizer(text)
+        text = convert_contractions(text, contractions_dict)
 
-    text = discard_non_alpha(text)
+        text = remove_stopwords(text)
 
-    text = keep_pos(text)
+        text = text_lemmatizer(text)
 
-    text = remove_additional_stopwords(text)
+        text = discard_non_alpha(text)
 
-    return text
+        text = keep_pos(text)
+
+        text = remove_additional_stopwords(text)
+
+        return text
+
+    except Exception as e:
+        raise e
