@@ -2,6 +2,7 @@ import sys
 
 from src.exception import EcomException
 
+
 class EcomModel:
     def __init__(self, preprocessor, model):
         try:
