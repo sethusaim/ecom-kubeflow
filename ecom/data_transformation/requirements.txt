@@ -5,3 +5,4 @@ pandas==1.5.3
 pip-chill==1.0.1
 scikit-learn==1.2.1
 wincertstore==0.2
+spacy==3.5.1
