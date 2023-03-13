@@ -1,4 +1,4 @@
-awscli==1.27.85
+awscli==1.27.89
 boto3==1.26.72
 certifi==2022.12.7
 pandas==1.5.3

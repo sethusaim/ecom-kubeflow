@@ -1,7 +1,11 @@
 import sys
 
 from src.cloud_storage.aws_storage import S3Operation
-from src.entity.artifact_entity import ModelEvaluationArtifact, ModelTrainerArtifact
+from src.entity.artifact_entity import (
+    ModelEvaluationArtifact,
+    ModelTrainerArtifact,
+    ModelPusherArtifact,
+)
 from src.entity.config_entity import ModelPusherConfig
 from src.exception import EcomException
 from src.logger import logging
@@ -43,6 +47,13 @@ class ModelPusher:
                 logging.info("Trained Model is not accepted")
 
                 raise Exception("Trained Model is not accepted")
+
+            model_pusher_artifact = ModelPusherArtifact(
+                s3_model_bucket_file_name=self.model_pusher_config.model_pusher_bucket_file_name,
+                s3_model_bucket_name=self.model_pusher_config.model_pusher_bucket_name,
+            )
+
+            logging.info(f"Model Pusher Artifact is : {model_pusher_artifact}")
 
             logging.info("Exited initiate_model_pusher method of ModelPusher class")
 

@@ -53,7 +53,6 @@ class DataValidation:
 
     def initiate_data_validation(self) -> DataValidationArtifact:
         try:
-
             os.makedirs(self.data_validation_config.valid_data_dir, exist_ok=True)
 
             os.makedirs(self.data_validation_config.invalid_data_dir, exist_ok=True)
@@ -108,8 +107,6 @@ class DataValidation:
             )
 
             logging.info(f"Data validation artifact: {data_validation_artifact}")
-
-            return data_validation_artifact
 
         except Exception as e:
             raise EcomException(e, sys)

@@ -1,4 +1,4 @@
-awscli==1.27.85
+awscli==1.27.89
 boto3==1.26.78
 certifi==2022.12.7
 dill==0.3.6

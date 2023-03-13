@@ -1,4 +1,4 @@
-awscli==1.27.85
+awscli==1.27.89
 backports.functools-lru-cache==1.6.4
 boto3==1.26.67
 certifi==2022.12.7

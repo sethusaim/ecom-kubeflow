@@ -12,7 +12,10 @@ from sklearn.model_selection import train_test_split
 from src.cloud_storage.aws_operation import S3Operation
 from src.constant import training_pipeline
 from src.constant.training_pipeline import LABEL_DICT
-from src.entity.artifact_entity import DataValidationArtifact
+from src.entity.artifact_entity import (
+    DataTransformationArtifact,
+    DataValidationArtifact,
+)
 from src.entity.config_entity import DataTransformationConfig
 from src.exception import EcomException
 from src.logger import logging
@@ -211,8 +214,6 @@ class DataTransformation:
 
             X_val_tfidf = tfidf.transform(X_val_norm)
 
-            X_test_tfidf = tfidf.transform(X_test_norm)
-
             logging.info("Transformed train,val and test data using TfidfVectorizer")
 
             sparse.save_npz(
@@ -225,9 +226,9 @@ class DataTransformation:
                 X_val_tfidf,
             )
 
-            sparse.save_npz(
+            save_object(
                 self.data_transformation_config.transformed_test_features_file_path,
-                X_test_tfidf,
+                X_test_norm,
             )
 
             logging.info("Saved transformed train,val and test features")
@@ -251,6 +252,24 @@ class DataTransformation:
             )
 
             logging.info("Saved transformed train,val and test targets")
+
+            logging.info(
+                "Exited initiate_data_transformation method of DataTransformation class"
+            )
+
+            data_transformation_artifact = DataTransformationArtifact(
+                transformed_train_features_file_path=self.data_transformation_config.transformed_train_features_file_path,
+                transformed_val_features_file_path=self.data_transformation_config.transformed_val_features_file_path,
+                transformed_test_features_file_path=self.data_transformation_config.transformed_test_features_file_path,
+                transformed_vectorizer_file_path=self.data_transformation_config.transformed_vectorizer_file_path,
+                transformed_train_targets_file_path=self.data_transformation_config.transformed_train_features_file_path,
+                transformed_val_targets_file_path=self.data_transformation_config.transformed_val_targets_file_path,
+                transformed_test_targets_file_path=self.data_transformation_config.transformed_test_targets_file_path,
+            )
+
+            logging.info(
+                f"Data Transformation artifact: {data_transformation_artifact}"
+            )
 
             logging.info(
                 "Exited initiate_data_transformation method of DataTransformation class"

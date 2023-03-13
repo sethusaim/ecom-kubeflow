@@ -1,5 +1,6 @@
 import os
 from src.constant import training_pipeline
+from dataclasses import dataclass
 
 
 class ModelTrainerArtifact:
@@ -30,3 +31,10 @@ class ModelEvaluationArtifact:
         self.model_evaluation_info: str = os.path.join(
             self.model_evaluation_dir, training_pipeline.MODEL_EVALUATION_MODEL_INFO
         )
+
+
+@dataclass
+class ModelPusherArtifact:
+    s3_model_bucket_name: str
+
+    s3_model_bucket_file_name: str

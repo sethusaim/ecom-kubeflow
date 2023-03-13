@@ -1,19 +1,19 @@
+import json
 import sys
 
 from neuro_mf import ModelFactory
-import json
-
 from src.entity.artifact_entity import (
     ClassifactionMetricArtifact,
     DataTransformationArtifact,
     ModelInfoArtifact,
+    ModelTrainerArtifact,
 )
 from src.entity.config_entity import ModelTrainerConfig
 from src.exception import EcomException
 from src.logger import logging
 from src.ml.metric import calculate_metric
-from src.utils.main_utils import load_csr_matrix, load_object, save_object
 from src.ml.model.estimator import EcomModel
+from src.utils.main_utils import load_csr_matrix, load_object, save_object
 
 
 class ModelTrainer:
@@ -64,7 +64,7 @@ class ModelTrainer:
                 best_model_detail.best_score
                 < self.model_trainer_config.expected_accuracy
             ):
-                logging.info("No best model foudn with score more than base score")
+                logging.info("No best model found with score more than base score")
 
                 raise Exception("No best model found with score more than base score")
 
@@ -93,6 +93,12 @@ class ModelTrainer:
                 json.dump(best_model_info.__dict__, f)
 
             logging.info(f"Best model info is : {best_model_info}")
+
+            model_trainer_artifact = ModelTrainerArtifact(
+                trained_model_info=self.model_trainer_config.model_trainer_best_model_info_path
+            )
+
+            logging.info(f"Model Trainer Artifact is : {model_trainer_artifact}")
 
             logging.info("Exited initiate_model_training method of ModelTrainer class")
 
