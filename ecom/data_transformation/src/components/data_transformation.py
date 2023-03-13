@@ -8,7 +8,6 @@ from nltk.tokenize import RegexpTokenizer
 from scipy import sparse
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-
 from src.cloud_storage.aws_operation import S3Operation
 from src.constant import training_pipeline
 from src.constant.training_pipeline import LABEL_DICT
@@ -130,6 +129,8 @@ class DataTransformation:
             )
 
             os.system("python -m spacy download en")
+
+            os.system("python -m nltk.downloader stopwords")
 
             self.s3.sync_folder_from_s3(
                 folder=self.data_transformation_config.data_transformation_config_folder,
