@@ -37,23 +37,25 @@ def train_pipeline():
 
     env_var = V1EnvVar(name="MONGO_DB_URL", value=MONGO_DB_URL)
 
-    task_1.container.add_env_variable(env_var)
+    task_1.container.add_env_variable(env_var).set_image_pull_policy(
+        image_pull_policy="Always"
+    )
 
     task_2: ContainerOp = data_validation()
 
-    task_2.after(task_1)
+    task_2.after(task_1).container.set_image_pull_policy(image_pull_policy="Always")
 
     task_3: ContainerOp = data_transformation()
 
-    task_3.after(task_2)
+    task_3.after(task_2).container.set_image_pull_policy(image_pull_policy="Always")
 
     task_4: ContainerOp = model_training()
 
-    task_4.after(task_3)
+    task_4.after(task_3).container.set_image_pull_policy(image_pull_policy="Always")
 
     task_5: ContainerOp = model_evaluation()
 
-    task_5.after(task_4)
+    task_5.after(task_4).container.set_image_pull_policy(image_pull_policy="Always")
 
     task_6: ContainerOp = model_pusher()
 
