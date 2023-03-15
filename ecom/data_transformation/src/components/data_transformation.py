@@ -128,10 +128,6 @@ class DataTransformation:
                 self.data_transformation_config.data_transformation_dir, exist_ok=True
             )
 
-            os.system("python -m spacy download en")
-
-            os.system("python -m nltk.downloader stopwords")
-
             self.s3.sync_folder_from_s3(
                 folder=self.data_transformation_config.data_transformation_config_folder,
                 bucket_name=self.data_transformation_config.data_transformation_config_bucket_name,
