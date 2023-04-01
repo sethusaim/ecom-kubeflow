@@ -2,4 +2,4 @@ name: Ecom Data Ingestion
 implementation:
   container:
     image: 566373416292.dkr.ecr.us-east-1.amazonaws.com/ecom_data_ingestion
-    command: [python3, run.py]
+    command: ["python3", "run.py"]
